@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page_title }}</title>
-    <link href="{{ 'style.css' | asset_url }}" rel="stylesheet">
+    {% comment %} <link href="{{ 'style.css' | asset_url }}" rel="stylesheet"> {% endcomment %}
     {{ content_for_header }}
 </head>
 <body>
@@ -12,6 +12,6 @@
     {{ content_for_layout }}
     {% section 'footer' %}
 
-    <script src="{{ 'main.js' | asset_url }}" defer></script>
+    {% comment %} <script src="{{ 'main.js' | asset_url }}" defer></script> {% endcomment %}
 </body>
 </html>
