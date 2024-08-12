@@ -1,8 +1,8 @@
-{% if section.settings.banner_404 == blank %}
-    {% assign banner_bg_url = 'https:cdn.shopify.com/s/files/1/0639/4934/0808/files/section-4.jpg?v=1720468133' %}
-{% else %}
-    {% assign banner_bg_url = section.settings.banner_404 %}  
-{% endif %}
+{% comment %} 
+    Note: the default for banner_bg_url is not set on schema because the default must be a string | datasource access path
+    Example: "/", "/collections/mycollection"
+{% endcomment %}
+{% assign banner_bg_url = section.settings.banner_404 | default: 'https:cdn.shopify.com/s/files/1/0639/4934/0808/files/section-4.jpg?v=1720468133' %}
 
 <section
     class="home-section home-parallax home-fade home-full-height bg-dark bg-dark-30"
@@ -15,11 +15,7 @@
                 {{ section.settings.subtext_404 }}
             </div>
             <div class="font-alt mt-30">
-                {% if section.settings.button_url == blank %}
-                    {% assign redirect_url = routes.root_url %}
-                {% else %}
-                    {% assign redirect_url = section.settings.button_url %}
-                {% endif %}
+                {% assign redirect_url = section.settings.button_url |  default: routes.root_url %}
                 <a class="btn btn-border-w btn-round" href="{{ redirect_url }}">{{ section.settings.button_label }}</a>
             </div>
         </div>
@@ -58,7 +54,8 @@
             {
                 "type": "url",
                 "id": "button_url",
-                "label": "Button URL"
+                "label": "Button URL",
+                "default": "/"
             }
         ]
     }
