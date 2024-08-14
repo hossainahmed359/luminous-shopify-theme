@@ -1,4 +1,10 @@
-{% render 'hero-slider' %}
+<section class="home-section home-fade home-full-height" id="home">
+    <div class="hero-slider">
+        <ul class="slides">
+            {% render 'static-slider-item' %}
+        </ul>
+    </div>
+</section>
 
 <div class="main">
     <section class="module-small">
@@ -288,15 +294,5 @@
     {% comment %} PREV FOOTER POSITOIN FOR REFERANCE {% endcomment %}
 </div>
 
-{% schema %}
-{
-    "name": "My Template Index"
-}
-{% endschema %}
 
-{% comment %} {
-    "type": "url",
-    "id": "main_home_111",
-    "label": "sdsdsd",
-    "default": "sdsd"
-} {% endcomment %}
+
