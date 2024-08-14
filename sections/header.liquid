@@ -1,5 +1,5 @@
 {% if section.settings['navigation_menu'].links == blank %}
-    {% assign nav_linklist = linklists[section.settings['navigation-menu']] %}
+    {% assign nav_linklist = linklists['main-menu'] %}
 {% else %}
     {% assign nav_linklist = section.settings['navigation_menu'] %}
 {% endif %}
