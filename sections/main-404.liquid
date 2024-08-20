@@ -2,7 +2,7 @@
     Note: the default for banner_bg_url is not set on schema because the default must be a string | datasource access path
     Example: "/", "/collections/mycollection"
 {% endcomment %}
-{% assign banner_bg_url = section.settings.banner_404 | default: 'https:cdn.shopify.com/s/files/1/0639/4934/0808/files/section-4.jpg?v=1720468133' %}
+{% assign banner_bg_url = section.settings.hero_banner_404 | default: 'https:cdn.shopify.com/s/files/1/0639/4934/0808/files/section-4.jpg?v=1720468133' %}
 
 <section
     class="home-section home-parallax home-fade home-full-height bg-dark bg-dark-30"
@@ -30,8 +30,8 @@
         "settings": [
             {
                 "type": "url",
-                "id": "banner_404",
-                "label": "404 Banner"
+                "id": "hero_banner_404",
+                "label": "404 Hero Banner"
             },
             {
                 "type": "text",

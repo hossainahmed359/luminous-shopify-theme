@@ -1,10 +1,12 @@
+{% assign blog_banner_bg_url = section.settings.hero_banner_blog |  default : 'https://cdn.shopify.com/s/files/1/0639/4934/0808/files/blog_bg.jpg?v=1723800681' %}
+
 <div class="main">
-    <section class="module bg-dark-60 blog-page-header" data-background="assets/images/blog_bg.jpg">
+    <section class="module bg-dark-60 blog-page-header" data-background="{{ blog_banner_bg_url }}">
         <div class="container">
             <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Blog Grid</h2>
-                <div class="module-subtitle font-serif">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</div>
+                <h2 class="module-title font-alt">{{ section.settings.hero_banner_heading }}</h2>
+                <div class="module-subtitle font-serif">{{ section.settings.hero_banner_subtitle }}</div>
             </div>
             </div>
         </div>
@@ -175,3 +177,30 @@
     </footer>
 </div>
 <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+
+{% schema %}
+{
+    "name": "My Template Blog",
+    "tag": "section",
+    "class": "luminous-blog",
+    "settings": [
+        {
+            "type": "url" ,
+            "id": "hero_banner_blog",
+            "label": "Blog Hero Banner"
+        }, 
+        {
+            "type": "text",
+            "id": "hero_banner_heading",
+            "label": "Blog Hero Heading",
+            "default": "Blog Grid"
+        },
+        {
+            "type": "text",
+            "id": "hero_banner_subtitle",
+            "label": "Blog Hero Subtitle",
+            "default": "A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart."
+        }
+    ]
+}
+{% endschema %}
