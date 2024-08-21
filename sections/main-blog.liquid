@@ -1,6 +1,12 @@
-{% assign blog_banner_bg_url = section.settings.hero_banner_blog |  default : 'https://cdn.shopify.com/s/files/1/0639/4934/0808/files/blog_bg.jpg?v=1723800681' %}
+{% style %}
+    .luminous-blog__article-image {
+        aspect-ratio:16/9;
+        object-fit:cover;
+    }
+{% endstyle %}
 
 <div class="main">
+    {% assign blog_banner_bg_url = section.settings.hero_banner_blog |  default : 'https://cdn.shopify.com/s/files/1/0639/4934/0808/files/blog_bg.jpg?v=1723800681' %}
     <section class="module bg-dark-60 blog-page-header" data-background="{{ blog_banner_bg_url }}">
         <div class="container">
             <div class="row">
@@ -14,13 +20,16 @@
     <section class="module">
         <div class="container">
             <div class="row multi-columns-row post-columns">
-                {% comment %} {% assign article_image = article.image.src |  (  default : 'blog_thumbnail.jpg'  |  asset_img_url ) %} {% endcomment %}
                 {% for article in blog.articles %}
                     <div class="col-sm-6 col-md-4 col-lg-4">
                         <div class="post">
                             <div class="post-thumbnail">
                                 <a href="{{ article.url }}">
-                                    <img src="{{ 'blog_thumbnail.jpg' | asset_img_url }}" alt="Blog-post Thumbnail">
+                                    {% if article.image %}
+                                        <img class="luminous-blog__article-image" src="{{ article.image | image_url }}" alt="{{ article.title }}">
+                                    {% else %}
+                                        <img class="luminous-blog__article-image" src="{{ 'blog_thumbnail.jpg' | asset_img_url }}" alt="{{ article.title }}">
+                                    {% endif %}
                                 </a>
                             </div>
                             <div class="post-header font-alt">
@@ -28,9 +37,9 @@
                                     <a href="{{ article.url }}">{{ article.title }}</a>
                                 </h2>
                                 <div class="post-meta">
-                                    By&nbsp;
-                                    <a href="{{ article.url }}">{{ article.author }}</a>
-                                    &nbsp;| {{ article.published_at | time_tag: format : 'on_date' }} | 3 Comments
+                                    By&nbsp; <a href="{{ article.url }}">{{ article.author }}</a>
+                                    &nbsp;| {{ article.published_at | date: "%b %d" }} |
+                                    {{ article.comments_count }} Comments
                                 </div>
                             </div>
                             <div class="post-entry">
