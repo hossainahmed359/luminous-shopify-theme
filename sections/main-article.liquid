@@ -92,15 +92,6 @@
                     </form>
                 </div>
                 <div class="widget">
-
-                    {% for blog in blogs %}
-                        <h2>{{ blog.title }}</h2>
-                        <ul>
-                        {% for tag in blog.all_tags %}
-                            <li><a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a></li>
-                        {% endfor %}
-                        </ul>
-                    {% endfor %}
                     
                     <h5 class="widget-title font-alt">Blog Categories</h5>
                     <ul class="icon-list">

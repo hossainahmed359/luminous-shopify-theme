@@ -1,12 +1,28 @@
 {% style %}
-    .luminous-blog__article-card {
-        min-height: 450px;
+
+    .luminous-blog--row {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 0 30px;
+    }
+
+    @media screen and (min-width:780px) {
+        .luminous-blog--row {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media screen and (min-width:992px) {
+        .luminous-blog--row {
+            grid-template-columns: repeat(3, 1fr);
+        }
     }
 
     .luminous-blog__article-image {
         aspect-ratio:16/9;
         object-fit:cover;
     }
+    
 {% endstyle %}
 
 <div class="main">
@@ -24,51 +40,48 @@
 
     <section class="module">
         <div class="container">
-            <div class="row multi-columns-row post-columns">
-                {% for article in blog.articles %}
-                    <div class="luminous-blog__article-card col-sm-6 col-md-4 col-lg-4">
-                        <div class="post">
-                            <div class="post-thumbnail">
-                                <a href="{{ article.url }}">
-                                    {% if article.image %}
-                                        <img class="luminous-blog__article-image" src="{{ article.image | image_url }}" alt="{{ article.title }}">
-                                    {% else %}
-                                        <img class="luminous-blog__article-image" src="{{ 'blog_thumbnail.jpg' | asset_img_url }}" alt="{{ article.title }}">
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="post-header font-alt">
-                                <h2 class="post-title">
-                                    <a href="{{ article.url }}">{{ article.title }}</a>
-                                </h2>
-                                <div class="post-meta">
-                                    By&nbsp; <a href="{{ article.url }}">{{ article.author }}</a>
-                                    &nbsp;| {{ article.published_at | date: "%b %d" }} |
-                                    {{ article.comments_count }} Comments
+            {% paginate blog.articles by 6 %}
+                <div class="luminous-blog luminous-blog--row">
+                    {% for article in blog.articles %}
+                        <div class="luminous-blog__article-card">
+                            <div class="post">
+                                <div class="post-thumbnail">
+                                    <a href="{{ article.url }}">
+                                        {% if article.image %}
+                                            <img class="luminous-blog__article-image" src="{{ article.image | image_url }}" alt="{{ article.title }}">
+                                        {% else %}
+                                            <img class="luminous-blog__article-image" src="{{ 'blog_thumbnail.jpg' | asset_img_url }}" alt="{{ article.title }}">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="post-header font-alt">
+                                    <h2 class="post-title">
+                                        <a href="{{ article.url }}">{{ article.title }}</a>
+                                    </h2>
+                                    <div class="post-meta">
+                                        By&nbsp; <a href="{{ article.url }}">{{ article.author }}</a>
+                                        &nbsp;| {{ article.published_at | date: "%b %d" }} |
+                                        {{ article.comments_count }} Comments
+                                    </div>
+                                </div>
+                                <div class="post-entry">
+                                    <p> 
+                                        {% if article.excerpt.size > 0 %}
+                                            {{ article.excerpt | strip_html | truncate: 140 }}
+                                        {% else %}
+                                            {{ article.content | strip_html | truncate: 140 }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div class="post-more">
+                                    <a class="more-link" href="{{ article.url }}">Read more</a>
                                 </div>
                             </div>
-                            <div class="post-entry">
-                                <p> 
-                                    {% if article.excerpt.size > 0 %}
-                                        {{ article.excerpt | strip_html | truncate: 140 }}
-                                    {% else %}
-                                        {{ article.content | strip_html | truncate: 140 }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                            <div class="post-more">
-                                <a class="more-link" href="{{ article.url }}">Read more</a>
-                            </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="pagination font-alt">
-                <a href="#"><i class="fa fa-angle-left"></i></a>
-                <a class="active" href="#">1</a><a href="#">2</a>
-                <a href="#">3</a><a href="#">4</a>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
-            </div>
+                    {% endfor %}
+                </div>
+                {% render 'pagination', paginate: paginate, default_pagination : false, json: false %}
+            {% endpaginate %}
         </div>
     </section>
 </div>

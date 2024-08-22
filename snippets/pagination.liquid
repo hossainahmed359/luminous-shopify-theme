@@ -1,0 +1,36 @@
+{% if paginate.pages > 1 %}
+    <div class="pagination font-alt">
+        {% if default_pagination %}
+            {{ paginate | default_pagination: next: '>', previous: '<' }} 
+        {% else %}
+            {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}"><i class="fa fa-angle-left"></i></a>
+            {% endif %}
+
+            {% for part in paginate.parts %}
+                {% if part.is_link %}
+                    <a class="" href="{{ part.url }}">{{ part.title }}</a>
+                {% elsif part.title == paginate.current_page %}
+                    <a class="active" href="javascript:void(0)">{{ part.title }}</a>
+                {% else %}
+                    <a class="" href="javascript:void(0)">{{ part.title}} </a>      
+                {% endif %}
+            {% endfor %}
+
+            {% if paginate.next %}
+                <a href="{{ paginate.next.url }}"><i class="fa fa-angle-right"></i></a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
+
+
+
+{% if json %}
+    <pre>
+        <code style="display: block;">
+            {{ paginate | json }}
+        </code>
+    </pre> 
+{% endif %}
+
