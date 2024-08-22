@@ -1,6 +1,7 @@
 {% style %}
 
-    .luminous-blog--row {
+/* GRID */
+.luminous-blog--row {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 0 30px;
@@ -18,11 +19,27 @@
         }
     }
 
+    /* DESIGN OVERWRITES */
+    .luminous-blog__article-card .post {
+        margin-bottom: 50px;
+    }
+
     .luminous-blog__article-image {
         aspect-ratio:16/9;
         object-fit:cover;
     }
-    
+
+
+    .luminous-blog__article-card__post-entry p{
+        min-height: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
 {% endstyle %}
 
 <div class="main">
@@ -64,7 +81,7 @@
                                         {{ article.comments_count }} Comments
                                     </div>
                                 </div>
-                                <div class="post-entry">
+                                <div class="luminous-blog__article-card__post-entry post-entry">
                                     <p> 
                                         {% if article.excerpt.size > 0 %}
                                             {{ article.excerpt | strip_html | truncate: 140 }}
